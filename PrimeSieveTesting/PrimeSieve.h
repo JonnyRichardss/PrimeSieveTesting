@@ -18,6 +18,7 @@ protected:
     const std::map<const long long, const int> resultsDictionary =
     {
           {          10LL, 4         },               // Historical data for validating our results - the number of primes
+          {          20LL, 8         },
           {         100LL, 25        },               // to be found under some limit, such as 168 primes under 1000
           {        1000LL, 168       },
           {       10000LL, 1229      },
