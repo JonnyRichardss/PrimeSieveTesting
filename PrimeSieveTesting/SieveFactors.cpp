@@ -1,6 +1,6 @@
 #include "SieveFactors.h"
 
-SieveFactors::SieveFactors(long long upTo) : PrimeSieve(upTo, "Factor-based sieve"), bitArray(upTo, true)
+SieveFactors::SieveFactors(long long upTo) : PrimeSieve(upTo, "Factor based sieve"), bitArray(upTo, true)
 {
 }
 

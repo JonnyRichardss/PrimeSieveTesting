@@ -130,11 +130,13 @@
     <ClCompile Include="PrimeSieve.cpp" />
     <ClCompile Include="PrimeSieveTesting.cpp" />
     <ClCompile Include="SieveFactors.cpp" />
+    <ClCompile Include="SieveWilson.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnablePrints.h" />
     <ClInclude Include="PrimeSieve.h" />
     <ClInclude Include="SieveFactors.h" />
+    <ClInclude Include="SieveWilson.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,12 +2,12 @@
 #include <chrono>
 #include <vector>
 #include "SieveFactors.h"
+#include "SieveWilson.h"
 using namespace std::chrono_literals;
 
 void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
     //deviating from what (i think) DavePL does here - instead i'm going to run-validate-reset
-    //as far as i can tell his repeated passes will be much faster since its working on a completed bit array
-    //but i want to run and validate since i have other methods coming that can't work the same way
+    //he only validates once at the end but i want to run and validate so my sieves will reset themselves when they start running
     auto startT = std::chrono::steady_clock::now();
     int passes = 0;
     std::vector<bool> passValidations;
@@ -18,7 +18,7 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
     }
     int correctCount = 0; for (bool b : passValidations) if (b) correctCount++;
     double duration = std::chrono::duration_cast<std::chrono::microseconds> (std::chrono::steady_clock::now() - startT).count() / 1000000;
-    printf("Sieve %s results: \n%s \nNumber of passes: %i \nNumber of correct passes: %i \nExpected count: %i \nLast pass count: %i \nTotal time: %lf \nAverage time: %lf \nSieve size: %lli \n",
+    printf("Sieve '%s' results: \n%s \nNumber of passes: %i \nNumber of correct passes: %i \nExpected count: %i \nLast pass count: %i \nTotal time: %lf \nAverage time: %lf \nSieve size: %lli \n%s\n",
         sieve.name,
         "------------------",
         passes,
@@ -27,15 +27,23 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
         sieve.lastResult,
         duration,
         duration / passes,
-        sieve.upTo);
+        sieve.upTo,
+        "------------------");
     if (sieve.GetExpected() == -1) {
         printf("Expected value of -1 means that the value of 'upto' is different to those stored in the validation table.\n");
     }
 }
 int main()
 {
-    SieveFactors factorSieve(1000000L);
-    Test_Sieve(factorSieve,2s);
-    //printf("Hello, World!\n");
-    
+    long long sieveSize = 1000000L;
+    auto testTime = 2s;
+
+
+
+
+    SieveFactors factorSieve(sieveSize);
+    SieveWilson wilsonSieve(sieveSize);
+
+    Test_Sieve(factorSieve,testTime);
+    Test_Sieve(wilsonSieve, testTime);   
 }

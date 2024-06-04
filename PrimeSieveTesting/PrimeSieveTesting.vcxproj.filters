@@ -24,6 +24,9 @@
     <ClCompile Include="SieveFactors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SieveWilson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrimeSieve.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnablePrints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveWilson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
