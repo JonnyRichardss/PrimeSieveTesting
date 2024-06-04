@@ -8,7 +8,7 @@ int SieveFactors::Calculate()
 {
     //reset
     std::fill(bitArray.begin(), bitArray.end(), true);
-    lastResult = 0;
+    lastResult = 1;//start by including #2
 
     int maxFactor = sqrt(upTo);
     for (int factor = 3; factor < maxFactor; factor += 2) {//only checking odd numbers
@@ -17,7 +17,7 @@ int SieveFactors::Calculate()
             bitArray[product] = false;//every odd multiple of factor is now set to false
         }
     }
-    for (int i = 0; i < upTo; i++) {
+    for (int i = 3; i < upTo; i+=2) {
         if (bitArray[i]) lastResult++;
     }
     return lastResult;
