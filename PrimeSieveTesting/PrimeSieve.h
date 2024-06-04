@@ -3,15 +3,17 @@
 class PrimeSieve
 {
 public:
-	PrimeSieve(long long upTo);
+	PrimeSieve(long long upTo, const char* name = "Unnamed Sieve class");
 	virtual ~PrimeSieve();
 	//returns the number of primes below upTo (set at construction of the sieve) and saves it for validation
 	virtual int Calculate() = 0;
 	//returns true if the last calculated value is equal to the pre-defined correct value
 	bool Validate();
+    int GetExpected();
+    const char* name;
+	int lastResult;
+    const long long upTo;
 protected:
-    long long upTo;
-	int last_result;
     //https://github.com/PlummersSoftwareLLC/Primes/blob/original/PrimeCPP/PrimeCPP.cpp
     const std::map<const long long, const int> resultsDictionary =
     {

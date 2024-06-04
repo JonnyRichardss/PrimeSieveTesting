@@ -132,6 +132,7 @@
     <ClCompile Include="SieveFactors.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnablePrints.h" />
     <ClInclude Include="PrimeSieve.h" />
     <ClInclude Include="SieveFactors.h" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include "PrimeSieve.h"
 #include <cstdio>
-PrimeSieve::PrimeSieve(long long upTo) : upTo(upTo),last_result(0)
+#include "EnablePrints.h"
+PrimeSieve::PrimeSieve(long long upTo,const char* name) : upTo(upTo), lastResult(0), name(name)
 {
 }
 
@@ -12,15 +13,22 @@ bool PrimeSieve::Validate()
 {
     auto correctValIterator = resultsDictionary.find(upTo);
     if (correctValIterator == resultsDictionary.end()) {
-        printf("No historical answer for max value %lli! -- Assuming answer is correct.\n", upTo);
+        if (!DONT_PRINT) printf("No historical answer for max value %lli! -- Assuming answer is correct.\n", upTo);
         return true;
     }
-    if (correctValIterator->second == last_result) {
-        printf("Correctly found %i primes up to %lli!\n", last_result, upTo);
+    if (correctValIterator->second == lastResult) {
+        if (!DONT_PRINT) printf("Correctly found %i primes up to %lli!\n", lastResult, upTo);
         return true;
     }
     else {
-        printf("expected to find %i primes up to %lli, got %i!\n", correctValIterator->second, upTo,last_result);
+        if (!DONT_PRINT) printf("expected to find %i primes up to %lli, got %i!\n", correctValIterator->second, upTo,lastResult);
         return false;
     }
+}
+
+int PrimeSieve::GetExpected()
+{
+    auto correctValIterator = resultsDictionary.find(upTo);
+    if (correctValIterator == resultsDictionary.end()) return -1;
+    else return correctValIterator->second;
 }

@@ -32,5 +32,8 @@
     <ClInclude Include="SieveFactors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnablePrints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

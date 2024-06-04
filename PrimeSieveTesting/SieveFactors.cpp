@@ -1,6 +1,6 @@
 #include "SieveFactors.h"
 
-SieveFactors::SieveFactors(long long upTo) : PrimeSieve(upTo), bitArray(upTo,true)
+SieveFactors::SieveFactors(long long upTo) : PrimeSieve(upTo, "Factor-based sieve"), bitArray(upTo, true)
 {
 }
 
@@ -8,7 +8,7 @@ int SieveFactors::Calculate()
 {
     //reset
     std::fill(bitArray.begin(), bitArray.end(), true);
-    last_result = 0;
+    lastResult = 0;
 
     int maxFactor = sqrt(upTo);
     for (int factor = 3; factor < maxFactor; factor += 2) {//only checking odd numbers
@@ -18,7 +18,7 @@ int SieveFactors::Calculate()
         }
     }
     for (int i = 0; i < upTo; i++) {
-        if (bitArray[i]) last_result++;
+        if (bitArray[i]) lastResult++;
     }
-    return last_result;
+    return lastResult;
 }
