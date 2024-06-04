@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="PrimeSieve.cpp" />
     <ClCompile Include="PrimeSieveTesting.cpp" />
+    <ClCompile Include="SieveFactors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrimeSieve.h" />
+    <ClInclude Include="SieveFactors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

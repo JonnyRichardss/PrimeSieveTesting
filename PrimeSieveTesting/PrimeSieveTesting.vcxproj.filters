@@ -21,9 +21,15 @@
     <ClCompile Include="PrimeSieve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SieveFactors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrimeSieve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SieveFactors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

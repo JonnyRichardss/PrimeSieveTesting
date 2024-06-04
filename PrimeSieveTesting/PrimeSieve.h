@@ -4,12 +4,12 @@ class PrimeSieve
 {
 public:
 	PrimeSieve(long long upTo);
-	~PrimeSieve();
-	//returns the number of primes below upTo (set at construction of the sieve)
+	virtual ~PrimeSieve();
+	//returns the number of primes below upTo (set at construction of the sieve) and saves it for validation
 	virtual int Calculate() = 0;
 	//returns true if the last calculated value is equal to the pre-defined correct value
 	bool Validate();
-private:
+protected:
     long long upTo;
 	int last_result;
     //https://github.com/PlummersSoftwareLLC/Primes/blob/original/PrimeCPP/PrimeCPP.cpp
