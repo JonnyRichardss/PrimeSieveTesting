@@ -36,7 +36,7 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
 }
 int main()
 {
-    long long sieveSize = 1000000LL;
+    long long sieveSize = 10000000000LL;
     auto testTime = 2s;
     
 

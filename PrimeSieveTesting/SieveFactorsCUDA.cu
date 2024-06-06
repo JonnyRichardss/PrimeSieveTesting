@@ -29,7 +29,7 @@ struct GPUBitset {
         memset(data, setvalue, sizeof(size_t) * data_size);
     }
     bool GetBitHost(size_t index) {
-        //if (index > numBits) printf("FUCKY WUCKY");
+        if (index > numBits) printf("FUCKY WUCKY");
         size_t data_loc = index / SIZE_T_BITS;
         size_t loc_offset = index % SIZE_T_BITS;
         //printf("%zu[%zu]\n", data, data_loc);
@@ -131,7 +131,7 @@ int SieveFactorsCUDA::Calculate()
     cudaFree(arrayDataGPU);
     cudaFree(LowPrimesGPU);
     cudaFree(bitArrayGPU);
-    for (int i = 3; i < upTo; i += 2) {
+    for (size_t i = 3; i < upTo; i += 2) {
         if (bitArray->GetBitHost(i)) lastResult++;
     }
     return lastResult;
