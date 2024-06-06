@@ -3,6 +3,7 @@
 #include <vector>
 #include "SieveFactors.h"
 #include "SieveWilson.h"
+#include "SieveFactorsCUDA.cuh"
 using namespace std::chrono_literals;
 
 void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
@@ -17,7 +18,7 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
         passValidations.push_back(sieve.Validate());
     }
     int correctCount = 0; for (bool b : passValidations) if (b) correctCount++;
-    double duration = std::chrono::duration_cast<std::chrono::microseconds> (std::chrono::steady_clock::now() - startT).count() / 1000000;
+    double duration = (std::chrono::duration_cast<std::chrono::microseconds> (std::chrono::steady_clock::now() - startT).count()) / 1000000.0;
     printf("Sieve '%s' results: \n%s \nNumber of passes: %i \nNumber of correct passes: %i \nExpected count: %i \nLast pass count: %i \nTotal time: %lf \nAverage time: %lf \nSieve size: %lli \n%s\n",
         sieve.name,
         "------------------",
@@ -35,15 +36,16 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
 }
 int main()
 {
-    long long sieveSize = 20;
-    auto testTime = 2s;
-
+    long long sieveSize = 1000000LL;
+    auto testTime = 1s;
+    
 
 
 
     SieveFactors factorSieve(sieveSize);
     SieveWilson wilsonSieve(sieveSize);
-
+    SieveFactorsCUDA cudaSieve(sieveSize);
+    Test_Sieve(cudaSieve, testTime);
     Test_Sieve(factorSieve,testTime);
-    Test_Sieve(wilsonSieve, testTime);   
+    //Test_Sieve(wilsonSieve, testTime);   
 }

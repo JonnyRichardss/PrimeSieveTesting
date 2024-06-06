@@ -41,5 +41,15 @@
     <ClInclude Include="SieveWilson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SieveFactorsCUDA.cuh" />
+    <ClInclude Include="GPUbitset.cuh" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="vcpkg.json" />
+    <None Include="..\vcpkg-configuration.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="SieveFactorsCUDA.cu" />
   </ItemGroup>
 </Project>
