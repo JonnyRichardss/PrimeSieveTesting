@@ -42,7 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SieveFactorsCUDA.cuh" />
-    <ClInclude Include="GPUbitset.cuh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

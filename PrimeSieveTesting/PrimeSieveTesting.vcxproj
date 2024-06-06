@@ -158,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnablePrints.h" />
-    <ClInclude Include="GPUbitset.cuh" />
     <ClInclude Include="PrimeSieve.h" />
     <ClInclude Include="SieveFactors.h" />
     <ClInclude Include="SieveFactorsCUDA.cuh" />
