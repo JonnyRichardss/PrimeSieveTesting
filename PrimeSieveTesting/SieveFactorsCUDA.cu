@@ -3,6 +3,7 @@
 #include <device_launch_parameters.h>
 #include <vector>
 //working with multiple CUDA files is a nightmare so this is getting manually #included
+#define NUM_BLOCKS 4096
 #define SIZE_T_BITS 64 //not that this is gonna change for me personally but oh well
 struct GPUBitset {
     size_t* data;
@@ -66,14 +67,17 @@ SieveFactorsCUDA::SieveFactorsCUDA(long long upTo) : PrimeSieve(upTo, "CUDA Fact
 {
     bitArray = new GPUBitset(upTo, true);
 }
-__global__ void EliminateMultiples(long long upTo,int maxFactor,int* lowPrimes, size_t numLowPrimes, GPUBitset* bitArray) {
+__global__ void EliminateMultiples(long long upTo, int maxFactor, int* lowPrimes, size_t numLowPrimes, GPUBitset* bitArray) {
+    //TODO assign blocks in 2d
     if (blockIdx.x >= numLowPrimes) return;
-    for (int factor = lowPrimes[blockIdx.x] + 2 * threadIdx.x; factor < maxFactor; factor += blockDim.x) {
-        if (!bitArray->GetBitDevice(factor)) continue;//if its already a multiple of something else - skip
-        for (int product = factor * factor; product < upTo; product += factor * 2) {
-            bitArray->ClearBitDevice(product);//every odd multiple of factor is now set to false
-        }
+    for (int primeToCheck = blockIdx.x; primeToCheck < numLowPrimes; primeToCheck+= NUM_BLOCKS) {
+        int factor = lowPrimes[primeToCheck];
+    if (!bitArray->GetBitDevice(factor)) return;//if its already a multiple of something else - skip
+    for (int product = (factor * factor) + factor * threadIdx.x; product < upTo; product += factor * blockDim.x) {
+        bitArray->ClearBitDevice(product);//every odd multiple of factor is now set to false
     }
+}
+    
 }
 int SieveFactorsCUDA::Calculate()
 {
@@ -118,7 +122,7 @@ int SieveFactorsCUDA::Calculate()
 
     //do the checks on each of the lowPrimes in parallel
 
-    EliminateMultiples << < 2048, 1024 >> > (upTo,sqrt(upTo),LowPrimesGPU,lowPrimes.size(),bitArrayGPU);
+    EliminateMultiples << < NUM_BLOCKS, 1024 >> > (upTo,sqrt(upTo),LowPrimesGPU,lowPrimes.size(),bitArrayGPU);
     //copy the bitArray back
     cudaMemcpy( bitArrayHostData, arrayDataGPU, dataGPUsize, cudaMemcpyDeviceToHost);
     cudaMemcpy( bitArrayGPU, bitArray, bitsGPUsize, cudaMemcpyDeviceToHost);
