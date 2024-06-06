@@ -16,6 +16,7 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
         sieve.Calculate();
         passes++;
         passValidations.push_back(sieve.Validate());
+        break;//DEBUG
     }
     int correctCount = 0; for (bool b : passValidations) if (b) correctCount++;
     double duration = (std::chrono::duration_cast<std::chrono::microseconds> (std::chrono::steady_clock::now() - startT).count()) / 1000000.0;
@@ -37,15 +38,15 @@ void Test_Sieve(PrimeSieve& sieve, std::chrono::seconds testTime) {
 int main()
 {
     long long sieveSize = 10000000000LL;
-    auto testTime = 2s;
+    auto testTime = 1s;
     
 
 
 
-    SieveFactors factorSieve(sieveSize);
-    SieveWilson wilsonSieve(sieveSize);
+    //SieveFactors factorSieve(sieveSize);
+    //SieveWilson wilsonSieve(sieveSize);
     SieveFactorsCUDA cudaSieve(sieveSize);
     Test_Sieve(cudaSieve, testTime);
-    Test_Sieve(factorSieve,testTime);
+    //Test_Sieve(factorSieve,testTime);
     //Test_Sieve(wilsonSieve, testTime);   
 }
